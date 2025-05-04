@@ -1,10 +1,15 @@
-# 📦 Postman API Testing Practice 2
+## 📦 Postman API Testing Practice 2
 
-This repository serves as a **practical extension** of the [Rest_Assured-Postman-API-Practice1](https://github.com/AARdacca/Rest_Assured-Postman-API-Practice1) project. It focuses on enhancing API testing skills using **Postman** for inspection and **Rest Assured** for automation.
+This repository is a continuation of hands-on API testing and automation practice, extending the work done in the [Rest_Assured-Postman-API-Practice1](https://github.com/AARdacca/Rest_Assured-Postman-API-Practice1) repository.
 
-## 🔍 **Objective:**  
-To implement and automate comprehensive API test scenarios by inspecting browser network activity and validating them with assertions and test coverage.
+It focuses on exploring API endpoints, validating functionality, and ensuring robustness through structured Postman collections and Rest Assured automation.
 
-## 📑 **Documentation Link:**  
-Explore the full Postman collection and API documentation here:  
+🔍 **Objective:**  
+To implement and automate end-to-end API scenarios by inspecting browser network activity and verifying expected behaviors with assertions and edge case handling.
+
+📁 **Postman Collections:**
+- 📄 `Postman Practice 01.postman_collection.json` → Used in [Postman-API-Testing-Practice1](https://github.com/AARdacca/Postman-API-Testing-Practice1)
+- 📄 `Postman Practice 02.postman_collection.json` → **Main collection** for this repository
+
+📑 **Documentation Link:**  
 👉 [Postman API Documentation](https://documenter.getpostman.com/view/42431548/2sB2j68pWZ)
