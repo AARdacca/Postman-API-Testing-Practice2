@@ -1,0 +1,494 @@
+{
+	"info": {
+		"_postman_id": "3efa7c7c-965e-4868-85da-921c7bf07213",
+		"name": "Postman Practice 02",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42431548",
+		"_collection_link": "https://www.postman.com/aliahasanraiyan/workspace/my-workspace/collection/42431548-3efa7c7c-965e-4868-85da-921c7bf07213?action=share&source=collection_link&creator=42431548"
+	},
+	"item": [
+		{
+			"name": "Register New User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonResponse= pm.response.json();\r",
+							"\r",
+							"const userId=jsonResponse._id;\r",
+							"const email=jsonResponse.email;\r",
+							"pm.collectionVariables.set(\"userId\",userId);\r",
+							"pm.collectionVariables.set(\"useremail2\",email);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\":\"Thor\",\r\n    \"lastName\":\"Harbour\",\r\n    \"email\":\"thorharbour+{{runNumber}}@gmail.com\",\r\n    \"password\":\"1234\",\r\n    \"phoneNumber\":\"09177087645\",\r\n    \"address\":\"Chicago\",\r\n    \"gender\":\"Male\",\r\n    \"termsAccepted\":true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dailyfinanceapi.roadtocareer.net/api/auth/register",
+					"protocol": "https",
+					"host": [
+						"dailyfinanceapi",
+						"roadtocareer",
+						"net"
+					],
+					"path": [
+						"api",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login by Admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let res = pm.response.json();\r",
+							"pm.collectionVariables.set(\"token_admin2\", res.token);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"admin@test.com\",\r\n    \"password\":\"admin123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dailyfinanceapi.roadtocareer.net/api/auth/login",
+					"protocol": "https",
+					"host": [
+						"dailyfinanceapi",
+						"roadtocareer",
+						"net"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User List",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token_admin2}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://dailyfinanceapi.roadtocareer.net/api/user/users",
+					"protocol": "https",
+					"host": [
+						"dailyfinanceapi",
+						"roadtocareer",
+						"net"
+					],
+					"path": [
+						"api",
+						"user",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();\r",
+							"\r",
+							"// Optional: update fields before saving, if needed\r",
+							"response.firstName = \"Donald\";\r",
+							"response.lastName = \"Harbour\";\r",
+							"response.email = \"lokiharbour+{{runNumber}}@gmail.com\";\r",
+							"\r",
+							"// Save full updated body as a stringified variable\r",
+							"pm.collectionVariables.set(\"updateUserBody\", JSON.stringify(response));\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token_admin2}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://dailyfinanceapi.roadtocareer.net/api/user/{{userId}}",
+					"protocol": "https",
+					"host": [
+						"dailyfinanceapi",
+						"roadtocareer",
+						"net"
+					],
+					"path": [
+						"api",
+						"user",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonResponse= pm.response.json();\r",
+							"const email=jsonResponse.email;\r",
+							"pm.collectionVariables.set(\"useremail2\",email);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token_admin2}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{updateUserBody}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dailyfinanceapi.roadtocareer.net/api/user/{{userId}}",
+					"protocol": "https",
+					"host": [
+						"dailyfinanceapi",
+						"roadtocareer",
+						"net"
+					],
+					"path": [
+						"api",
+						"user",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login by User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let res = pm.response.json();\r",
+							"pm.collectionVariables.set(\"token_user2\", res.token);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"{{useremail2}}\",\r\n    \"password\":\"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dailyfinanceapi.roadtocareer.net/api/auth/login",
+					"protocol": "https",
+					"host": [
+						"dailyfinanceapi",
+						"roadtocareer",
+						"net"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Item",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();\r",
+							"response.itemName = \"Gaming Laptop\";\r",
+							"response.amount = \"151000\";\r",
+							"response.amount = 2;\r",
+							"pm.collectionVariables.set(\"new_item_id\", response._id);\r",
+							"pm.collectionVariables.set(\"updateItemBody\", JSON.stringify(response));"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token_user2}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"itemName\":\"Laptop\",\r\n    \"quantity\":1,\r\n    \"amount\":\"121000\",\r\n    \"purchaseDate\":\"2025-05-03\",\r\n    \"month\":\"May\",\r\n    \"remarks\":\"Lenovo\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dailyfinanceapi.roadtocareer.net/api/costs",
+					"protocol": "https",
+					"host": [
+						"dailyfinanceapi",
+						"roadtocareer",
+						"net"
+					],
+					"path": [
+						"api",
+						"costs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Item List",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token_user2}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://dailyfinanceapi.roadtocareer.net/api/costs",
+					"protocol": "https",
+					"host": [
+						"dailyfinanceapi",
+						"roadtocareer",
+						"net"
+					],
+					"path": [
+						"api",
+						"costs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Item Name",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token_user2}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{updateItemBody}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dailyfinanceapi.roadtocareer.net/api/costs/{{new_item_id}}",
+					"protocol": "https",
+					"host": [
+						"dailyfinanceapi",
+						"roadtocareer",
+						"net"
+					],
+					"path": [
+						"api",
+						"costs",
+						"{{new_item_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Item",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token_user2}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://dailyfinanceapi.roadtocareer.net/api/costs/{{new_item_id}}",
+					"protocol": "https",
+					"host": [
+						"dailyfinanceapi",
+						"roadtocareer",
+						"net"
+					],
+					"path": [
+						"api",
+						"costs",
+						"{{new_item_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"let current = parseInt(pm.collectionVariables.get(\"runNumber\") || \"1002\", 10);\r",
+					"let next = current + 1;\r",
+					"\r",
+					"pm.collectionVariables.set(\"runNumber\", next);\r",
+					"pm.collectionVariables.set(\"currentRunNumber\", current);"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "userId",
+			"value": ""
+		},
+		{
+			"key": "token_admin2",
+			"value": ""
+		},
+		{
+			"key": "token_user2",
+			"value": ""
+		},
+		{
+			"key": "updateUserBody",
+			"value": ""
+		},
+		{
+			"key": "useremail2",
+			"value": ""
+		},
+		{
+			"key": "new_item_id",
+			"value": ""
+		},
+		{
+			"key": "updateItemBody",
+			"value": ""
+		},
+		{
+			"key": "runNumber",
+			"value": ""
+		},
+		{
+			"key": "currentRunNumber",
+			"value": ""
+		}
+	]
+}
